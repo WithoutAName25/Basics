@@ -1,0 +1,1 @@
+# BaseApplication [![BaseApplication CI](https://github.com/WithoutAName25/BaseApplication/actions/workflows/CICD.yml/badge.svg)](https://github.com/WithoutAName25/BaseApplication/actions/workflows/CICD.yml) [![codecov](https://codecov.io/gh/WithoutAName25/BaseApplication/branch/master/graph/badge.svg?token=W8NISYM6IU)](https://codecov.io/gh/WithoutAName25/BaseApplication)
