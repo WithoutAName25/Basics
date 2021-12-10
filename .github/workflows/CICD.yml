@@ -1,0 +1,26 @@
+name: BaseApplication CI
+
+on:
+  push:
+    branches-ignore: [ dependabot/** ]
+  pull_request:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Grant gradlew execute permission
+        run: chmod +x gradlew
+      - name: Test with Gradle
+        run: ./gradlew test
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./WithoutABotBackend/build/reports/jacoco/test/jacocoTestReport.xml
+          flags: unittests
