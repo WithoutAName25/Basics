@@ -53,6 +53,6 @@ class FakeApplicationPart(val callback: (Int) -> Unit = {}) : ApplicationPart() 
     
     @EventHandler
     fun notAValidEventHandler(notAnEvent: Int) {
-        throw IllegalStateException("This method should not be called because it is has no event parameter!")
+        throw IllegalStateException("This method should not be called because it has no event parameter!")
     }
 }
