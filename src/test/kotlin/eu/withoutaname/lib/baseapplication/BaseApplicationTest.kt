@@ -2,6 +2,7 @@ package eu.withoutaname.lib.baseapplication
 
 import org.assertj.core.api.WithAssertions
 import org.junit.jupiter.api.Test
+import java.lang.IllegalStateException
 
 internal class BaseApplicationTest : WithAssertions {
     
@@ -30,15 +31,28 @@ internal class BaseApplicationTest : WithAssertions {
         
         assertThat(callbackCounter).isEqualTo(1)
     }
+}
+
+data class FakeEvent(val someRandomValue: Int) : Event
+class OtherEvent : Event
+annotation class OtherAnnotation
+
+class FakeApplicationPart(val callback: (Int) -> Unit = {}) : ApplicationPart() {
     
-    data class FakeEvent(val someRandomValue: Int) : Event
-    class OtherEvent : Event
+    @OtherAnnotation
+    @EventHandler
+    fun onFakeEvent(event: FakeEvent) {
+        callback(event.someRandomValue)
+    }
     
-    open class FakeApplicationPart(val callback: (Int) -> Unit = {}) : ApplicationPart() {
-        
-        @EventHandler
-        open fun onFakeEvent(event: FakeEvent) {
-            callback(event.someRandomValue)
-        }
+    @OtherAnnotation
+    @Suppress("unused", "unused_parameter")
+    fun notAnEventHandler(event: FakeEvent) {
+        throw IllegalStateException("This method should not be called because it is not annotated with @EventHandler!")
+    }
+    
+    @EventHandler
+    fun notAValidEventHandler(notAnEvent: Int) {
+        throw IllegalStateException("This method should not be called because it has no event parameter!")
     }
 }
