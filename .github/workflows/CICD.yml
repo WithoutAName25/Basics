@@ -9,6 +9,7 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.repository != 'WithoutAName25/BaseApplication'
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
