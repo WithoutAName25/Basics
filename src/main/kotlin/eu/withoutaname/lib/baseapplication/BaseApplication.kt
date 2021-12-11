@@ -16,9 +16,7 @@ class BaseApplication {
             val params = it.parameters
             if (params.size == 2) {
                 val classifier = params[1].type.classifier
-                val kClass = classifier as KClass<*>
-                val eventKClass = Event::class
-                if (kClass.allSuperclasses.contains(eventKClass)) {
+                if (classifier is KClass<*> && classifier.allSuperclasses.contains(Event::class)) {
                     for (annotation in it.annotations) {
                         if (annotation is EventHandler) {
                             listener.getOrPut(classifier, ::mutableListOf).add { event ->
