@@ -35,14 +35,17 @@ internal class BaseApplicationTest : WithAssertions {
 
 data class FakeEvent(val someRandomValue: Int) : Event
 class OtherEvent : Event
+annotation class OtherAnnotation
 
 class FakeApplicationPart(val callback: (Int) -> Unit = {}) : ApplicationPart() {
     
+    @OtherAnnotation
     @EventHandler
     fun onFakeEvent(event: FakeEvent) {
         callback(event.someRandomValue)
     }
     
+    @OtherAnnotation
     @Suppress("unused", "unused_parameter")
     fun notAnEventHandler(event: FakeEvent) {
         throw IllegalStateException("This method should not be called because it is not annotated with @EventHandler!")
