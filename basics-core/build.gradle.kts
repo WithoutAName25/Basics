@@ -5,7 +5,7 @@ plugins {
     jacoco
 }
 
-group = "eu.withoutaname.lib"
+group = "eu.withoutaname.lib.basics"
 version = "1.0.0-alpha.1"
 
 repositories {

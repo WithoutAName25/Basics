@@ -1,4 +1,4 @@
-package eu.withoutaname.lib.baseapplication
+package eu.withoutaname.lib.basics
 
 @Target(AnnotationTarget.FUNCTION)
 annotation class EventHandler

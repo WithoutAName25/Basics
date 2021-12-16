@@ -1,17 +1,17 @@
-package eu.withoutaname.lib.baseapplication
+package eu.withoutaname.lib.basics
 
 import java.util.function.Consumer
 import kotlin.reflect.KClass
 import kotlin.reflect.full.allSuperclasses
 
-class BaseApplication {
+class Basics {
     
-    val applicationParts = mutableListOf<ApplicationPart>()
+    val basicsParts = mutableListOf<BasicsPart>()
     private val listener = mutableMapOf<KClass<*>, MutableList<Consumer<Event>>>()
     
-    fun registerPart(applicationPart: ApplicationPart) {
-        applicationParts.add(applicationPart)
-        val moduleClass = applicationPart::class
+    fun registerPart(basicsPart: BasicsPart) {
+        basicsParts.add(basicsPart)
+        val moduleClass = basicsPart::class
         moduleClass.members.forEach {
             val params = it.parameters
             if (params.size == 2) {
@@ -20,7 +20,7 @@ class BaseApplication {
                     for (annotation in it.annotations) {
                         if (annotation is EventHandler) {
                             listener.getOrPut(classifier, ::mutableListOf).add { event ->
-                                it.call(applicationPart, event)
+                                it.call(basicsPart, event)
                             }
                             break
                         }

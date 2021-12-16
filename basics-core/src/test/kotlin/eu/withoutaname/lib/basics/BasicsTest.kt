@@ -1,18 +1,18 @@
-package eu.withoutaname.lib.baseapplication
+package eu.withoutaname.lib.basics
 
 import org.assertj.core.api.WithAssertions
 import org.junit.jupiter.api.Test
 import java.lang.IllegalStateException
 
-internal class BaseApplicationTest : WithAssertions {
+internal class BasicsTest : WithAssertions {
     
-    private val baseApplication = BaseApplication()
+    private val basics = Basics()
     
     @Test
     fun registerPart() {
-        val fakeModule = FakeApplicationPart()
-        baseApplication.registerPart(fakeModule)
-        assertThat(baseApplication.applicationParts)
+        val fakeModule = FakeBasicsPart()
+        basics.registerPart(fakeModule)
+        assertThat(basics.basicsParts)
             .hasSize(1)
             .contains(fakeModule)
     }
@@ -20,14 +20,14 @@ internal class BaseApplicationTest : WithAssertions {
     @Test
     fun fireEvent() {
         var callbackCounter = 0
-        val fakeApplicationPart = FakeApplicationPart {
+        val fakeApplicationPart = FakeBasicsPart {
             assertThat(it).isEqualTo(42)
             callbackCounter++
         }
-        baseApplication.registerPart(fakeApplicationPart)
+        basics.registerPart(fakeApplicationPart)
     
-        baseApplication.fireEvent(FakeEvent(42))
-        baseApplication.fireEvent(OtherEvent())
+        basics.fireEvent(FakeEvent(42))
+        basics.fireEvent(OtherEvent())
         
         assertThat(callbackCounter).isEqualTo(1)
     }
@@ -37,7 +37,7 @@ data class FakeEvent(val someRandomValue: Int) : Event
 class OtherEvent : Event
 annotation class OtherAnnotation
 
-class FakeApplicationPart(val callback: (Int) -> Unit = {}) : ApplicationPart() {
+class FakeBasicsPart(val callback: (Int) -> Unit = {}) : BasicsPart() {
     
     @OtherAnnotation
     @EventHandler

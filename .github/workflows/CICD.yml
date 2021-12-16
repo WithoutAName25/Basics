@@ -1,4 +1,4 @@
-name: BaseApplication CI
+name: Basics CI
 
 on:
   push:
