@@ -9,18 +9,33 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: [ basics-core ]
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      - id: changed-files
+        uses: tj-actions/changed-files@v12
+        with:
+          files: |
+            ^buildSrc\/
+            ^${{ matrix.module }}\/
       - name: Set up JDK
         uses: actions/setup-java@v1
+        if: steps.changed-files.outputs.any_changed == 'true'
         with:
           java-version: 17
       - name: Grant gradlew execute permission
+        if: steps.changed-files.outputs.any_changed == 'true'
         run: chmod +x gradlew
       - name: Test with Gradle
-        run: ./gradlew test
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: ./gradlew :${{ matrix.module }}:buildDependents
       - name: Upload coverage to Codecov
+        if: steps.changed-files.outputs.any_changed == 'true'
         uses: codecov/codecov-action@v2
         with:
-          files: ./build/reports/jacoco/test/jacocoTestReport.xml
-          flags: unittests
+          files: ./${{ matrix.module }}/build/reports/jacoco/test/jacocoTestReport.xml
+          flags: unittests,${{ matrix.module }}

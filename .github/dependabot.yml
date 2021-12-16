@@ -9,3 +9,12 @@ updates:
       - dependencies
     reviewers:
       - WithoutAName25
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+      time: "18:00"
+    labels:
+      - dependencies
+    reviewers:
+      - WithoutAName25

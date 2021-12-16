@@ -1,1 +1,2 @@
-rootProject.name = "BaseApplication"
+rootProject.name = "Basics"
+include("basics-core")
