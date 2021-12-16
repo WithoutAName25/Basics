@@ -14,29 +14,17 @@ jobs:
         module: [ basics-core ]
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-      - id: changed-files
-        uses: tj-actions/changed-files@v12
-        with:
-          files: |
-            ^buildSrc\/
-            ^${{ matrix.module }}\/
       - name: Set up JDK
         uses: actions/setup-java@v2.4.0
-        if: steps.changed-files.outputs.any_changed == 'true'
         with:
           distribution: temurin
           java-version: 17
           cache: gradle
       - name: Grant gradlew execute permission
-        if: steps.changed-files.outputs.any_changed == 'true'
         run: chmod +x gradlew
       - name: Test with Gradle
-        if: steps.changed-files.outputs.any_changed == 'true'
         run: ./gradlew :${{ matrix.module }}:buildDependents
       - name: Upload coverage to Codecov
-        if: steps.changed-files.outputs.any_changed == 'true'
         uses: codecov/codecov-action@v2
         with:
           files: ./${{ matrix.module }}/build/reports/jacoco/test/jacocoTestReport.xml
