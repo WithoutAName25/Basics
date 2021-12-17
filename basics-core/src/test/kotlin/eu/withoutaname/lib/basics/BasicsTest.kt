@@ -10,9 +10,9 @@ internal class BasicsTest : WithAssertions {
     
     @Test
     fun registerPart() {
-        val fakeModule = FakeBasicsPart()
-        basics.registerPart(fakeModule)
-        assertThat(basics.basicsParts)
+        val fakeModule = FakeListener()
+        basics.registerListener(fakeModule)
+        assertThat(basics.listeners)
             .hasSize(1)
             .contains(fakeModule)
     }
@@ -20,11 +20,11 @@ internal class BasicsTest : WithAssertions {
     @Test
     fun fireEvent() {
         var callbackCounter = 0
-        val fakeApplicationPart = FakeBasicsPart {
+        val fakeListener = FakeListener {
             assertThat(it).isEqualTo(42)
             callbackCounter++
         }
-        basics.registerPart(fakeApplicationPart)
+        basics.registerListener(fakeListener)
     
         basics.fireEvent(FakeEvent(42))
         basics.fireEvent(OtherEvent())
@@ -33,11 +33,11 @@ internal class BasicsTest : WithAssertions {
     }
 }
 
-data class FakeEvent(val someRandomValue: Int) : Event
-class OtherEvent : Event
-annotation class OtherAnnotation
+internal data class FakeEvent(val someRandomValue: Int) : Event
+internal class OtherEvent : Event
+internal annotation class OtherAnnotation
 
-class FakeBasicsPart(val callback: (Int) -> Unit = {}) : BasicsPart() {
+internal class FakeListener(val callback: (Int) -> Unit = {}) {
     
     @OtherAnnotation
     @EventHandler
