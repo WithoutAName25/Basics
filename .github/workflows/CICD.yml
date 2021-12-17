@@ -45,7 +45,7 @@ jobs:
         id: properties
         run: |
           PROPERTIES="$(./gradlew properties --console=plain -q)"
-          VERSION="$(echo "$PROPERTIES" | grep "^version:" | cut -f2- -d ' ')"
+          VERSION="$(echo "$PROPERTIES" | grep "^versionString:" | cut -f2- -d ' ')"
           echo "::set-output name=version::$VERSION"
       - uses: release-drafter/release-drafter@v5
         env:
