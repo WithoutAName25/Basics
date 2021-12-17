@@ -22,7 +22,7 @@ jobs:
       - name: Grant gradlew execute permission
         run: chmod +x gradlew
       - name: Test with Gradle
-        run: ./gradlew :${{ matrix.module }}:buildDependents
+        run: ./gradlew :${{ matrix.module }}:build
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
