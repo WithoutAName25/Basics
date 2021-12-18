@@ -3,7 +3,7 @@ tag-template: 'v$RESOLVED_VERSION'
 categories:
   - title: 'Dependency updates'
     label: 'dependencies'
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-template: '- $TITLE (#$NUMBER @$AUTHOR)'
 change-title-escapes: '\<*_&'
 template: |
   ## Changes
