@@ -5,6 +5,7 @@ categories:
     label: 'dependencies'
 change-template: '- $TITLE (#$NUMBER @$AUTHOR)'
 change-title-escapes: '\<*_&'
+version-template: $COMPLETE
 template: |
   ## Changes
   $CHANGES
