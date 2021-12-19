@@ -70,7 +70,7 @@ publishing {
                     }"
             )
             credentials {
-                username = System.getenv("MAVEN_NAME") ?: ""
+                username = System.getenv("MAVEN_USER") ?: ""
                 password = System.getenv("MAVEN_TOKEN") ?: ""
             }
         }

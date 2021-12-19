@@ -1,0 +1,26 @@
+name: Basics CD
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  publish:
+    name: Publish Basics
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.tag_name }}
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Grant gradlew execute permission
+        run: chmod +x gradlew
+      - name: Publish
+        run: ./gradlew publish
+        env:
+          MAVEN_USER: ${{ secrets.MAVEN_USER }}
+          MAVEN_TOKEN: ${{ secrets.MAVEN_TOKEN }}
