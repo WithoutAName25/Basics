@@ -1,11 +1,10 @@
-name-template: 'v$RESOLVED_VERSION'
-tag-template: 'v$RESOLVED_VERSION'
+name-template: 'v$INPUT_VERSION'
+tag-template: 'v$INPUT_VERSION'
 categories:
   - title: 'Dependency updates'
     label: 'dependencies'
 change-template: '- $TITLE (#$NUMBER @$AUTHOR)'
 change-title-escapes: '\<*_&'
-version-template: $COMPLETE
 template: |
   ## Changes
   $CHANGES
