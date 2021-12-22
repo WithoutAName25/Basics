@@ -35,7 +35,7 @@ jobs:
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Test with Gradle
-        run: ./gradlew :${{ matrix.module }}:build
+        run: ./gradlew --no-deamon :${{ matrix.module }}:build
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
@@ -59,7 +59,7 @@ jobs:
       - name: Export Properties
         id: properties
         run: |
-          PROPERTIES="$(./gradlew properties --console=plain -q)"
+          PROPERTIES="$(./gradlew --no-deamon properties --console=plain -q)"
           VERSION="$(echo "$PROPERTIES" | grep "^versionString:" | cut -f2- -d ' ')"
           echo "Current version: $VERSION"
           echo "::set-output name=version::$VERSION"
