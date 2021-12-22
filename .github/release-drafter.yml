@@ -1,6 +1,6 @@
-name-template: 'v$INPUT_VERSION'
-tag-template: 'v$INPUT_VERSION'
 categories:
+  - title: 'Breaking changes'
+    label: 'breaking'
   - title: 'Dependency updates'
     label: 'dependencies'
 change-template: '- $TITLE (#$NUMBER @$AUTHOR)'
