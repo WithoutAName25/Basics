@@ -6,12 +6,24 @@ on:
   pull_request:
 
 jobs:
+  scanModules:
+    name: Scan for modules to build
+    runs-on: ubuntu-latest
+    outputs:
+      modules: ${{ steps.modules.outputs.modules }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Scan modules
+        id: modules
+        # grep includes from settings.gradle.kts; get parameter of include("..."); format to array
+        run: echo "::set-output name=modules::[$(grep -E "^include\(\".+\"\)" settings.gradle.kts | cut -d "\"" -f 2 | sed "N; s/\n/,/")]"
   build:
     name: Build
     runs-on: ubuntu-latest
+    needs: scanModules
     strategy:
       matrix:
-        module: [ basics-core ]
+        module: ${{ needs.scanModules.outputs.modules }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
