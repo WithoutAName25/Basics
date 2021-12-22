@@ -53,6 +53,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: ${{ 'v' + steps.properties.outputs.version }}
-          tag: ${{ 'v' + steps.properties.outputs.version }}
+          name: ${{ format('v{0}', steps.properties.outputs.version) }}
+          tag: ${{ format('v{0}', steps.properties.outputs.version) }}
           prerelease: ${{ contains(steps.properties.outputs.version, 'alpha') || contains(steps.properties.outputs.version, 'beta') }}
