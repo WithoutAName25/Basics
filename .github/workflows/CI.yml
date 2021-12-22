@@ -10,20 +10,20 @@ jobs:
     name: Scan for modules to build
     runs-on: ubuntu-latest
     outputs:
-      modules: ${{ steps.modules.outputs.modules }}
+      modulesJson: ${{ steps.modules.outputs.modulesJson }}
     steps:
       - uses: actions/checkout@v2
       - name: Scan modules
         id: modules
-        # grep includes from settings.gradle.kts; get parameter of include("..."); format to array
-        run: echo "::set-output name=modules::[$(grep -E "^include\(\".+\"\)" settings.gradle.kts | cut -d "\"" -f 2 | sed "N; s/\n/,/")]"
+        # grep includes from settings.gradle.kts; get parameter of include("..."); format to json array
+        run: echo "::set-output name=modulesJson::[\"$(grep -E "^include\(\".+\"\)" settings.gradle.kts | cut -d "\"" -f 2 | sed "N; s/\n/\",\"/")\"]"
   build:
     name: Build
     runs-on: ubuntu-latest
     needs: scanModules
     strategy:
       matrix:
-        module: ${{ needs.scanModules.outputs.modules }}
+        module: ${{ fromJson(needs.scanModules.outputs.modulesJson) }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK
