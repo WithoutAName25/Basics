@@ -53,8 +53,9 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - name: Grant gradlew execute permission
-        run: chmod +x gradlew
+          cache: gradle
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
       - name: Export Properties
         id: properties
         run: |
