@@ -37,7 +37,7 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew --no-daemon :${{ matrix.module }}:build
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           files: ./${{ matrix.module }}/build/reports/jacoco/test/jacocoTestReport.xml
           flags: unittests,${{ matrix.module }}
