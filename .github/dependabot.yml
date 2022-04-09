@@ -7,8 +7,6 @@ updates:
       time: "18:00"
     labels:
       - dependencies
-    reviewers:
-      - WithoutAName25
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -16,5 +14,3 @@ updates:
       time: "18:00"
     labels:
       - dependencies
-    reviewers:
-      - WithoutAName25
