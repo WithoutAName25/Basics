@@ -12,7 +12,7 @@ jobs:
     outputs:
       modulesJson: ${{ steps.modules.outputs.modulesJson }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Scan modules
         id: modules
         # grep includes from settings.gradle.kts; get parameter of include("..."); format to json array
@@ -25,7 +25,7 @@ jobs:
       matrix:
         module: ${{ fromJson(needs.scanModules.outputs.modulesJson) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
@@ -47,7 +47,7 @@ jobs:
     needs: build
     if: github.event_name == 'push'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
